@@ -43,8 +43,7 @@ export function StudioStatement() {
           )}
           style={{ transitionDelay: "420ms" }}
         >
-          We work in pace, rhythm and restraint — cutting raw material into edits that
-          hold attention from the first frame. No filler, no templates, no noise.
+          {"\n"}
         </p>
       </div>
     </section>

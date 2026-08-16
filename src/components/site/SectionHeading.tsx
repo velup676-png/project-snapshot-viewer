@@ -16,7 +16,7 @@ export function SectionHeading({
         className,
       )}
     >
-      <span className="meta-label">{label}</span>
+      <span className="meta-label">{"\n"}</span>
       <span className="meta-label">{index}</span>
     </div>
   );

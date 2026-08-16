@@ -61,7 +61,7 @@ export function Hero() {
       <div className="relative flex min-h-[100svh] flex-col justify-between pt-24 pb-8 md:pt-28 md:pb-10">
         <div className="shell">
           <p className="meta-label anim-fade" style={{ animationDelay: "120ms" }}>
-            Draft Bin © 2026 — Video editing &amp; creative studio
+            {"\n"}
           </p>
         </div>
 
@@ -86,8 +86,7 @@ export function Hero() {
             style={{ animationDelay: "760ms" }}
           >
             <p className="min-w-0 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-              An editing studio built on pace, rhythm and restraint — cinematic cuts,
-              kinetic type and motion for creators and brands.
+              {"\n"}
             </p>
 
             <div className="hidden md:block">

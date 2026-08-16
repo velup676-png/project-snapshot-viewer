@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
  * without touching the navigation markup.
  */
 export const NAV_ITEMS: { label: string; href: string; index: string }[] = [
-  { label: "Studio", href: "#studio", index: "01" },
-  { label: "Services", href: "#services", index: "02" },
-  { label: "Work", href: "#work", index: "03" },
-  { label: "About", href: "#about", index: "04" },
+  { label: "Studio", href: "#studio", index: "\n" },
+  { label: "Services", href: "#services", index: "\n" },
+  { label: "Work", href: "#work", index: "\n" },
+  { label: "About", href: "#about", index: "\n" },
 
 ];
 
@@ -69,7 +69,7 @@ export function SiteNav() {
               </span>
             </a>
           ))}
-          <span className="meta-label hidden lg:inline">© 2026</span>
+          <span className="meta-label hidden lg:inline">{"\n"}</span>
         </nav>
 
         <button

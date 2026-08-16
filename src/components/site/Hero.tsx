@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import reel from "@/assets/videos/draftbin-reel.mp4.asset.json";
-import poster from "@/assets/videos/draftbin-poster.jpg.asset.json";
 import { cn } from "@/lib/utils";
 
+const reel = "/assets/videos/draftbin-reel.mp4";
+const poster = "/assets/videos/draftbin-poster.jpg";
 const LINES = ["We turn", "raw footage", "into stories", "worth watching."];
 
 export function Hero() {
@@ -43,8 +43,8 @@ export function Hero() {
             "h-full w-full object-cover transition-[filter,transform] duration-[1600ms]",
             ready ? "scale-100 blur-0" : "scale-[1.04] blur-[2px]",
           )}
-          src={reel.url}
-          poster={poster.url}
+          src={reel}
+          poster={poster}
           muted
           loop
           playsInline

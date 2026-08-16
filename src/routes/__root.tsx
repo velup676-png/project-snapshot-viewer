@@ -77,8 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "Draft Bin" },
+      { name: "author", content: "Srihari, founder of Draft Bin" },
       { name: "theme-color", content: "#0a0a0a" },
+      { name: "robots", content: "index, follow" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -100,10 +101,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://draftbinedits.vercel.app/#organization",
+        name: "Draft Bin",
+        url: "https://draftbinedits.vercel.app/",
+        logo: "https://draftbinedits.vercel.app/assets/brand/draftbin-logo.png",
+        description:
+          "Draft Bin is a cinematic video editing and creative studio founded by Srihari.",
+        email: "draftbin4@gmail.com",
+        sameAs: ["https://www.instagram.com/draft__bin/"],
+        founder: {
+          "@type": "Person",
+          name: "Srihari",
+          jobTitle: "Founder and Creative Director",
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://draftbinedits.vercel.app/#website",
+        url: "https://draftbinedits.vercel.app/",
+        name: "Draft Bin",
+        description:
+          "Draft Bin is a cinematic video editing and creative studio founded by Srihari.",
+        publisher: { "@id": "https://draftbinedits.vercel.app/#organization" },
+      },
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </head>
       <body>
         {children}

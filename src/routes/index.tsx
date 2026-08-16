@@ -6,10 +6,9 @@ import { ServiceList } from "@/components/site/ServiceList";
 import { AboutSection } from "@/components/site/AboutSection";
 import { SelectedWork } from "@/components/site/SelectedWork";
 
-
-const TITLE = "Draft Bin — Video Editing & Creative Studio";
+const TITLE = "Draft Bin — Video Editing Studio by Srihari";
 const DESCRIPTION =
-  "Draft Bin is a creative editing studio creating video edits, motion graphics, thumbnails and visual content for creators, brands and businesses.";
+  "Draft Bin is a cinematic video editing and creative studio founded by Srihari, creating video edits, motion graphics and visual content for creators, brands and businesses.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,9 +17,13 @@ export const Route = createFileRoute("/")({
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
+      { property: "og:url", content: "https://draftbinedits.vercel.app/" },
+      { property: "og:image", content: "https://draftbinedits.vercel.app/assets/brand/draftbin-logo.png" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
+      { name: "twitter:image", content: "https://draftbinedits.vercel.app/assets/brand/draftbin-logo.png" },
     ],
+    links: [{ rel: "canonical", href: "https://draftbinedits.vercel.app/" }],
   }),
   component: Index,
 });
@@ -41,4 +44,3 @@ function Index() {
     </>
   );
 }
-

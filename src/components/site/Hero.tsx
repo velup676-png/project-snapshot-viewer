@@ -66,7 +66,7 @@ export function Hero() {
         </div>
 
         <div className="shell">
-          <h1 className="display text-[clamp(3.25rem,8.6vw,7.75rem)]" style={{ lineHeight: 0.88 }}>
+          <h1 className="display text-[clamp(3.25rem,8.6vw,7.75rem)]" style={{ lineHeight: 0.9 }}>
             {LINES.map((line, i) => (
               <span key={line} className="block overflow-hidden">
                 <span

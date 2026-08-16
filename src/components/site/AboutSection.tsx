@@ -21,6 +21,25 @@ const CONTACTS = [
   },
 ];
 
+const TOOLKIT = [
+  {
+    category: "Video Editing",
+    tools: [
+      "CapCut",
+      "VN Video Editor",
+      "InShot",
+      "LumaFusion",
+      "KineMaster",
+      "PowerDirector",
+      "DaVinci Resolve",
+    ],
+  },
+  {
+    category: "Photo Editing",
+    tools: ["Snapseed", "Adobe Lightroom Mobile", "Picsart", "VSCO"],
+  },
+];
+
 export function AboutSection() {
   const { ref, shown } = useReveal<HTMLElement>(0.15);
 
@@ -37,9 +56,45 @@ export function AboutSection() {
         >
           <span className="meta-label">About us</span>
           <h2 className="display mt-4 text-[clamp(1.9rem,5.2vw,3.1rem)] leading-[1.04]">
-            Draft Bin is a creative editing studio turning footage, ideas and
-            visual concepts into content built to be watched.
+            Draft Bin is where raw footage meets curiosity, creativity and
+            constant learning.
           </h2>
+
+          <div className="mt-8 space-y-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p>
+              Built and edited by Sri Hari, Draft Bin is an independent creative
+              editing space focused on turning footage, ideas and visual
+              concepts into content worth watching.
+            </p>
+            <p>
+              Still in the learning phase. Always experimenting. Always
+              improving.
+            </p>
+          </div>
+
+          <div className="mt-12">
+            <span className="meta-label">Editing Toolkit</span>
+            <div className="mt-6 grid gap-8 sm:grid-cols-2">
+              {TOOLKIT.map(({ category, tools }) => (
+                <div key={category}>
+                  <h3 className="meta-label mb-3">{category}</h3>
+                  <ul className="space-y-1.5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                    {tools.map((tool) => (
+                      <li key={tool}>{tool}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="display mt-14 max-w-[20ch] text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.04]">
+            Learning the tools.
+            <br />
+            Refining the craft.
+            <br />
+            Building something worth watching.
+          </p>
         </div>
 
         {/* Get in touch */}
@@ -101,7 +156,7 @@ export function AboutSection() {
           <span className="text-sm font-semibold">Draft Bin</span>
           <div className="flex items-center gap-4">
             <a
-              href={INSTAGRAM_URL}
+              href={INSTAGAPP_URL}
               target="_blank"
               rel="noreferrer noopener"
               aria-label="Draft Bin on Instagram"

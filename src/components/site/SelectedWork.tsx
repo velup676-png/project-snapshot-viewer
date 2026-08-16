@@ -1,9 +1,6 @@
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
-import work01 from "@/assets/work/work-01.jpg.asset.json";
-import work02 from "@/assets/work/work-02.jpg.asset.json";
-import work03 from "@/assets/work/work-03.jpg.asset.json";
 
 /** Real Draft Bin reel frames. Add projects here as new media lands. */
 export const PROJECTS: {
@@ -19,7 +16,7 @@ export const PROJECTS: {
     title: "Lightning",
     category: "Short-form edit",
     year: "2026",
-    image: work01.url,
+    image: "/assets/work/work-01.jpg",
     span: "wide",
   },
   {
@@ -27,7 +24,7 @@ export const PROJECTS: {
     title: "Echoes",
     category: "Cinematic edit",
     year: "2026",
-    image: work02.url,
+    image: "/assets/work/work-02.jpg",
     span: "tall",
   },
   {
@@ -35,7 +32,7 @@ export const PROJECTS: {
     title: "Kinetic Type",
     category: "Motion graphics",
     year: "2026",
-    image: work03.url,
+    image: "/assets/work/work-03.jpg",
     span: "tall",
   },
 ];

@@ -3,8 +3,7 @@ import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
 const WHATSAPP_URL = "https://wa.me/918778484070";
-const INSTAGRAM_URL =
-  "https://www.instagram.com/draft__bin?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==&igsi=ZDNlZDc0MzIxNw==";
+const INSTAGRAM_URL = "https://www.instagram.com/draft__bin/";
 
 const CONTACTS = [
   {

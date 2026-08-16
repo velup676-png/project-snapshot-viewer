@@ -1,5 +1,6 @@
-import mark from "@/assets/brand/draftbin-mark.png.asset.json";
 import { cn } from "@/lib/utils";
+
+const mark = "/assets/brand/draftbin-mark.png";
 
 type LogoProps = {
   className?: string;
@@ -15,7 +16,7 @@ export function Logo({ className, withWordmark = false }: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-3", className)}>
       <img
-        src={mark.url}
+        src={mark}
         alt="Draft Bin"
         width={40}
         height={40}

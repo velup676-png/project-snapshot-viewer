@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 
 /** Single source of truth for services — edit this array only. */
 export const SERVICES: { index: string; title: string; note: string }[] = [
-  { index: "01", title: "Video Editing", note: "Narrative cuts, pacing, sound" },
-  { index: "02", title: "Short-Form / Reels", note: "Vertical edits built to retain" },
-  { index: "03", title: "YouTube Editing", note: "Long-form structure & rhythm" },
-  { index: "04", title: "Motion Graphics", note: "Kinetic type, titles, overlays" },
-  { index: "05", title: "Thumbnail Design", note: "Frames that earn the click" },
-  { index: "06", title: "Creative Graphics", note: "Posters, key art, brand visuals" },
+  { index: "\n", title: "Video Editing", note: "Narrative cuts, pacing, sound" },
+  { index: "\n", title: "Short-Form / Reels", note: "Vertical edits built to retain" },
+  { index: "\n", title: "YouTube Editing", note: "Long-form structure & rhythm" },
+  { index: "\n", title: "Motion Graphics", note: "Kinetic type, titles, overlays" },
+  { index: "\n", title: "Thumbnail Design", note: "Frames that earn the click" },
+  { index: "\n", title: "Creative Graphics", note: "Posters, key art, brand visuals" },
 ];
 
 function ServiceItem({

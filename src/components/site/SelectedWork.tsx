@@ -112,7 +112,7 @@ export function SelectedWork() {
         ))}
       </div>
 
-      <p className="meta-label mt-12 md:mt-16">Full portfolio — coming next</p>
+      <p className="meta-label mt-12 md:mt-16">{"\n"}</p>
     </section>
   );
 }

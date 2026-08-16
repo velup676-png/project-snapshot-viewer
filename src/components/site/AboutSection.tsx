@@ -156,7 +156,7 @@ export function AboutSection() {
           <span className="text-sm font-semibold">Draft Bin</span>
           <div className="flex items-center gap-4">
             <a
-              href={INSTAGAPP_URL}
+              href={INSTAGRAM_URL}
               target="_blank"
               rel="noreferrer noopener"
               aria-label="Draft Bin on Instagram"

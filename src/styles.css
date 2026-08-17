@@ -98,8 +98,8 @@
 .atmosphere-panel {
   position: relative;
   width: 100%;
-  aspect-ratio: 2048 / 700;
-  min-height: 15rem;
+  aspect-ratio: 2048 / 350;
+  min-height: 7.5rem;
   overflow: hidden;
   background:
     radial-gradient(ellipse 58% 90% at 42% 2%, rgb(62 62 60 / 0.26), transparent 64%),

@@ -14,7 +14,7 @@ export function StudioStatement() {
     <section ref={ref} id="studio" className="shell py-24 md:py-36">
       <SectionHeading index="01" label="Studio" />
 
-      <h2 className="display mt-10 max-w-[22ch] leading-[0.80] text-[clamp(2.25rem,6.2vw,5.5rem)] md:mt-16">
+      <h2 className="display mt-10 max-w-[22ch] leading-[0.92] text-[clamp(2.25rem,6.2vw,5.5rem)] md:mt-16">
         {WORDS.map((word, i) => (
           <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
             <span

@@ -11,7 +11,7 @@ export function SelectedWork() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % PROJECTS.length), 1500);
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % PROJECTS.length), 2500);
     return () => window.clearInterval(timer);
   }, []);
 
@@ -32,16 +32,15 @@ export function SelectedWork() {
               <div className="absolute left-[7%] top-[36%] z-10 md:left-[10%] md:top-[34%]">
                 <h2 className="display text-[clamp(2.7rem,6vw,6rem)] leading-[0.84] tracking-[-0.055em]">{project.title}</h2>
               </div>
-              <div className="absolute left-1/2 top-1/2 h-[58%] w-[31%] min-w-[150px] max-w-[370px] -translate-x-1/2 -translate-y-[43%] overflow-hidden bg-card md:h-[62%]">
-                <img src={project.image} alt={project.title} className="h-full w-full object-cover" loading={index === 0 ? "eager" : "lazy"} />
-                <div className="absolute inset-0 bg-background/15" />
+              <div className="absolute left-1/2 top-1/2 h-[58%] w-[31%] min-w-[150px] max-w-[370px] -translate-x-1/2 -translate-y-[43%] bg-card md:h-[62%]">
+                <img src={project.image} alt={project.title} className="h-full w-full object-contain" loading={index === 0 ? "eager" : "lazy"} />
               </div>
             </article>
           );
         })}
 
         <div className="absolute bottom-0 left-0 z-30 flex h-[2px] w-full bg-foreground/10">
-          {PROJECTS.map((project, index) => <button key={project.id} type="button" aria-label={`Show ${project.title}`} onClick={() => setActive(index)} className="relative h-full flex-1"><span className="block h-full w-full origin-left bg-foreground/70" style={{ transform: index === active ? "scaleX(1)" : "scaleX(0)", transition: index === active ? "transform 1500ms linear" : "transform 300ms ease" }} /></button>)}
+          {PROJECTS.map((project, index) => <button key={project.id} type="button" aria-label={`Show ${project.title}`} onClick={() => setActive(index)} className="relative h-full flex-1"><span className="block h-full w-full origin-left bg-foreground/70" style={{ transform: index === active ? "scaleX(1)" : "scaleX(0)", transition: index === active ? "transform 2500ms linear" : "transform 300ms ease" }} /></button>)}
         </div>
       </div>
     </section>

@@ -94,20 +94,45 @@
 @utility hairline-t { border-top: 1px solid var(--color-hairline); }
 @utility film-bars { background-image: repeating-linear-gradient(90deg, var(--color-foreground) 0 2px, transparent 2px 8px); }
 
-/* Atmospheric spacer: intentionally identical to the site's near-black ground. */
-.atmosphere-panel {
+/* Monochrome mouse-reactive field. It is purely visual and never receives pointer events. */
+.interactive-field {
   position: relative;
-  width: 100%;
-  aspect-ratio: 2048 / 350;
-  min-height: 7.5rem;
-  overflow: hidden;
+  isolation: isolate;
+  overflow: clip;
   background: var(--background);
 }
 
-.atmosphere-panel::before,
-.atmosphere-panel__wash,
-.atmosphere-panel__grain {
-  display: none;
+.interactive-field > :not(.atmosphere-panel) {
+  position: relative;
+  z-index: 1;
+}
+
+.atmosphere-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0b0b0c;
+}
+
+.atmosphere-panel__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.72;
+  filter: blur(20px) contrast(1.05);
+  transform: scale(1.04);
+}
+
+.atmosphere-panel__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 20%, rgb(11 11 12 / 0.18) 68%, rgb(11 11 12 / 0.72) 100%),
+    linear-gradient(180deg, rgb(11 11 12 / 0.3), transparent 22%, transparent 78%, rgb(11 11 12 / 0.46));
 }
 
 @keyframes db-rise { from { opacity: 0; transform: translate3d(0, 110%, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
@@ -119,5 +144,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .atmosphere-panel__canvas { display: none; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }

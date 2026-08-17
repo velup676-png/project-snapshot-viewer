@@ -50,8 +50,8 @@ export function AtmospherePanel() {
     };
 
     const render = () => {
-      x += (targetX - x) * 0.075;
-      y += (targetY - y) * 0.075;
+      x += (targetX - x) * 0.045;
+      y += (targetY - y) * 0.045;
       const movement = Math.hypot(x - lastX, y - lastY);
       velocity += (movement - velocity) * 0.14;
       lastX = x;
@@ -63,12 +63,24 @@ export function AtmospherePanel() {
 
       const cx = x * width;
       const cy = y * height;
-      const radius = Math.max(width, height) * (0.18 + Math.min(velocity * 9, 0.09));
+      const t = performance.now() * 0.00035;
+      const radius = Math.max(width, height) * (0.19 + Math.min(velocity * 14, 0.12));
+      const drift = radius * 0.12;
 
       context.globalCompositeOperation = "screen";
-      drawBlob(cx, cy, radius, 0.14);
-      drawBlob(cx - radius * 0.36, cy + radius * 0.22, radius * 0.78, 0.075);
-      drawBlob(cx + radius * 0.44, cy - radius * 0.3, radius * 0.62, 0.055);
+      drawBlob(cx, cy, radius, 0.15);
+      drawBlob(
+        cx - radius * 0.36 + Math.cos(t) * drift - (targetX - x) * width * 0.35,
+        cy + radius * 0.22 + Math.sin(t * 1.3) * drift - (targetY - y) * height * 0.35,
+        radius * 0.8,
+        0.08,
+      );
+      drawBlob(
+        cx + radius * 0.44 + Math.sin(t * 0.8) * drift - (targetX - x) * width * 0.6,
+        cy - radius * 0.3 + Math.cos(t * 1.1) * drift - (targetY - y) * height * 0.6,
+        radius * 0.64,
+        0.06,
+      );
       context.globalCompositeOperation = "source-over";
 
       frame = window.requestAnimationFrame(render);

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";

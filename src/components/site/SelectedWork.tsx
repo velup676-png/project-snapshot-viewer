@@ -1,178 +1,120 @@
-import { useEffect, useRef } from "react";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { useReveal } from "@/hooks/use-reveal";
-import { cn } from "@/lib/utils";
-
-/** Real Draft Bin reel frames. Add projects here as new media lands. */
-export const PROJECTS: {
-  id: string;
-  title: string;
-  category: string;
-  year: string;
-  image: string;
-  span: "wide" | "tall";
-}[] = [
-  {
-    id: "01",
-    title: "Lightning",
-    category: "Short-form edit",
-    year: "2026",
-    image: "/assets/work/work-01.jpg",
-    span: "wide",
-  },
-  {
-    id: "02",
-    title: "Echoes",
-    category: "Cinematic edit",
-    year: "2026",
-    image: "/assets/work/work-02.jpg",
-    span: "tall",
-  },
-  {
-    id: "03",
-    title: "Kinetic Type",
-    category: "Motion graphics",
-    year: "2026",
-    image: "/assets/work/work-03.jpg",
-    span: "tall",
-  },
-];
-
-function ProjectCard({
-  project,
-  delay,
-}: {
-  project: (typeof PROJECTS)[number];
-  delay: number;
-}) {
-  const { ref, shown } = useReveal<HTMLElement>(0.18);
-  const frameRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  /* Very gentle scroll parallax on the image inside its fixed frame. */
-  useEffect(() => {
-    const frame = frameRef.current;
-    const img = imgRef.current;
-    if (!frame || !img) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const rect = frame.getBoundingClientRect();
-      const progress =
-        (rect.top + rect.height / 2 - window.innerHeight / 2) /
-        (window.innerHeight / 2 + rect.height / 2);
-      const clamped = Math.max(-1, Math.min(1, progress));
-      img.style.setProperty("--parallax", `${(clamped * 2.4).toFixed(2)}%`);
-    };
-    const onScroll = () => {
-      if (!raf) raf = window.requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (raf) window.cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  const ease = "var(--ease-cinematic)";
-
-  return (
-    <article
-      ref={ref}
-      className={cn("group", project.span === "wide" && "md:col-span-2")}
-    >
-      <div
-        ref={frameRef}
-        className="relative overflow-hidden bg-card"
-        style={{
-          clipPath: shown ? "inset(0% 0 0 0)" : "inset(14% 0 0 0)",
-          opacity: shown ? 1 : 0,
-          transition: `clip-path 1400ms ${ease} ${delay}ms, opacity 1100ms ${ease} ${delay}ms`,
-        }}
-      >
-        <img
-          ref={imgRef}
-          src={project.image}
-          alt={`${project.title} — ${project.category} by Draft Bin`}
-          loading="lazy"
-          className={cn(
-            "w-full object-cover",
-            project.span === "wide"
-              ? "aspect-[16/9] md:aspect-[21/9]"
-              : "aspect-[4/5] md:aspect-[4/5]",
-            "grayscale-[0.25] md:group-hover:grayscale-0",
-          )}
-          style={{
-            transform: `scale(${shown ? 1.06 : 1.14}) translate3d(0, var(--parallax, 0%), 0)`,
-            transition: `transform 1800ms ${ease} ${delay}ms, filter 1200ms ${ease}`,
-            willChange: "transform",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 bg-background/20 transition-opacity duration-700 md:group-hover:opacity-0"
-        />
-      </div>
-
-      <div
-        className="hairline-t mt-4 flex items-start justify-between gap-6 pt-3"
-        style={{
-          clipPath: shown ? "inset(0 0 0 0)" : "inset(0 100% 0 0)",
-          transition: `clip-path 1200ms ${ease} ${delay + 220}ms`,
-        }}
-      >
-        <div className="min-w-0">
-          <h3
-            className="display text-[clamp(1.5rem,3.4vw,2.5rem)] md:group-hover:translate-x-2"
-            style={{
-              opacity: shown ? 1 : 0,
-              transform: shown ? "translateY(0)" : "translateY(0.5rem)",
-              transition: `opacity 900ms ${ease} ${delay + 300}ms, transform 900ms ${ease} ${delay + 300}ms`,
-            }}
-          >
-            {project.title}
-          </h3>
-          <p
-            className="meta-label mt-2"
-            style={{
-              opacity: shown ? 1 : 0,
-              transform: shown ? "translateY(0)" : "translateY(0.375rem)",
-              transition: `opacity 900ms ${ease} ${delay + 420}ms, transform 900ms ${ease} ${delay + 420}ms`,
-            }}
-          >
-            {project.category}
-          </p>
-        </div>
-        <span
-          className="meta-label shrink-0"
-          style={{
-            opacity: shown ? 1 : 0,
-            transition: `opacity 900ms ${ease} ${delay + 520}ms`,
-          }}
-        >
-          {project.year}
-        </span>
-      </div>
-    </article>
-  );
-}
+import { useEffect, useState } from "react";
+import { PROJECTS } from "@/components/site/SelectedWorkData";
 
 export function SelectedWork() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % PROJECTS.length);
+    }, 1500);
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
-    <section id="work" className="shell py-20 md:py-32">
-      <SectionHeading index="04" label="Selected Work" />
+    <section id="work" className="overflow-hidden bg-background py-4 md:py-8">
+      <div className="relative mx-auto h-[340px] w-full max-w-[1320px] overflow-hidden border-y border-hairline bg-background sm:h-[420px] md:h-[560px]">
+        <div className="absolute left-7 top-7 z-20 flex items-center gap-8 text-[9px] font-semibold uppercase tracking-[0.12em] text-foreground/70 md:left-12 md:top-10 md:text-[10px]">
+          <span className="grid h-5 w-5 grid-cols-2 gap-[3px]" aria-hidden>
+            <i className="block bg-foreground" />
+            <i className="block bg-foreground/0" />
+            <i className="block bg-foreground/0" />
+            <i className="block bg-foreground" />
+          </span>
+          <span>Draft Bin</span>
+        </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-2 md:gap-x-8 md:gap-y-20">
-        {PROJECTS.map((project, i) => (
-          <ProjectCard key={project.id} project={project} delay={i * 140} />
-        ))}
+        <div className="absolute right-7 top-7 z-20 flex gap-6 text-[9px] font-semibold uppercase tracking-[0.08em] text-foreground/60 md:right-12 md:top-10 md:text-[10px]">
+          {PROJECTS.map((project, index) => (
+            <button
+              key={project.id}
+              type="button"
+              onClick={() => setActive(index)}
+              className="transition-colors duration-300 hover:text-foreground"
+              aria-label={`Show work ${index + 1}`}
+              aria-current={active === index ? "true" : undefined}
+            >
+              Page #{index + 1}
+            </button>
+          ))}
+        </div>
+
+        {PROJECTS.map((project, index) => {
+          const isActive = index === active;
+          return (
+            <article
+              key={project.id}
+              className="absolute inset-0"
+              style={{
+                opacity: isActive ? 1 : 0,
+                transform: isActive ? "translateX(0)" : "translateX(3%)",
+                pointerEvents: isActive ? "auto" : "none",
+                transition: "opacity 650ms cubic-bezier(0.22,1,0.36,1), transform 800ms cubic-bezier(0.22,1,0.36,1)",
+              }}
+              aria-hidden={!isActive}
+            >
+              <div className="absolute inset-x-0 top-1/2 h-px bg-hairline" />
+              <div className="absolute inset-y-0 left-1/2 hidden w-px bg-hairline md:block" />
+
+              <div className="absolute left-[7%] top-[36%] z-10 md:left-[10%] md:top-[34%]">
+                <h2 className="display text-[clamp(2.7rem,6vw,6rem)] leading-[0.84] tracking-[-0.055em]">
+                  {project.title}
+                </h2>
+                <p className="mt-3 text-[9px] tracking-wide text-muted-foreground md:text-[10px]">
+                  {project.category}
+                </p>
+                <p className="mt-1 text-[9px] tracking-wide text-muted-foreground/70 md:text-[10px]">
+                  Draft Bin — {project.year}
+                </p>
+                <button
+                  type="button"
+                  className="mt-8 inline-flex items-center gap-4 text-[9px] font-semibold uppercase tracking-[0.08em] text-foreground/80 md:mt-10 md:text-[10px]"
+                  onClick={() => setActive((index + 1) % PROJECTS.length)}
+                >
+                  Go to Page #{(index + 1) % PROJECTS.length + 1}
+                  <span className="block h-px w-8 bg-current" aria-hidden />
+                </button>
+              </div>
+
+              <div className="absolute left-1/2 top-1/2 h-[58%] w-[31%] min-w-[150px] max-w-[370px] -translate-x-1/2 -translate-y-[43%] overflow-hidden bg-card md:h-[62%]">
+                <img
+                  src={project.image}
+                  alt={`${project.title} — ${project.category}`}
+                  className="h-full w-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+                <div className="absolute inset-0 bg-background/15" />
+              </div>
+
+              <div className="absolute right-[9%] top-[30%] hidden max-w-[120px] text-[10px] leading-relaxed text-muted-foreground md:block">
+                <p>Work #{index + 1}</p>
+                <p>Simple</p>
+                <p>Interaction</p>
+              </div>
+
+              <div className="absolute bottom-7 right-7 text-right md:bottom-10 md:right-12">
+                <span className="display text-[clamp(1.3rem,2.2vw,2rem)] text-foreground/85">
+                  (Page #{index + 1})
+                </span>
+              </div>
+            </article>
+          );
+        })}
+
+        <div className="absolute bottom-0 left-0 z-30 flex h-[2px] w-full bg-foreground/10">
+          {PROJECTS.map((project, index) => (
+            <span
+              key={project.id}
+              className="h-full flex-1 origin-left bg-foreground/70"
+              style={{
+                transform: index === active ? "scaleX(1)" : "scaleX(0)",
+                transition: index === active ? "transform 1500ms linear" : "transform 300ms ease",
+              }}
+            />
+          ))}
+        </div>
       </div>
-
-      <p className="meta-label mt-12 md:mt-16">{"\n"}</p>
     </section>
   );
 }

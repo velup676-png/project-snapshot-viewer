@@ -35,11 +35,13 @@ function Index() {
       <SiteNav />
       <main>
         <Hero />
-        <AtmospherePanel />
-        <StudioStatement />
-        <ServiceList />
-        <SelectedWork />
-        <AboutSection />
+        <div className="interactive-field">
+          <AtmospherePanel />
+          <StudioStatement />
+          <ServiceList />
+          <SelectedWork />
+          <AboutSection />
+        </div>
       </main>
     </>
   );

@@ -94,46 +94,20 @@
 @utility hairline-t { border-top: 1px solid var(--color-hairline); }
 @utility film-bars { background-image: repeating-linear-gradient(90deg, var(--color-foreground) 0 2px, transparent 2px 8px); }
 
-/* Atmospheric panel: the exact low-contrast black/ash transition after the hero. */
+/* Atmospheric spacer: intentionally identical to the site's near-black ground. */
 .atmosphere-panel {
   position: relative;
   width: 100%;
   aspect-ratio: 2048 / 350;
   min-height: 7.5rem;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 58% 90% at 42% 2%, rgb(62 62 60 / 0.26), transparent 64%),
-    radial-gradient(ellipse 48% 100% at 82% 20%, rgb(43 43 42 / 0.16), transparent 70%),
-    linear-gradient(102deg, #090a0b 0%, #101111 38%, #151514 62%, #0b0c0d 100%);
+  background: var(--background);
 }
 
-.atmosphere-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, rgb(0 0 0 / 0.26), transparent 18%, transparent 78%, rgb(0 0 0 / 0.22)),
-    linear-gradient(180deg, rgb(0 0 0 / 0.2), transparent 36%, rgb(0 0 0 / 0.12));
-}
-
-.atmosphere-panel__wash {
-  position: absolute;
-  inset: -18%;
-  background:
-    radial-gradient(ellipse at 22% 28%, rgb(255 255 255 / 0.035), transparent 24%),
-    radial-gradient(ellipse at 63% 8%, rgb(255 255 255 / 0.025), transparent 30%),
-    radial-gradient(ellipse at 48% 88%, rgb(255 255 255 / 0.018), transparent 34%);
-  filter: blur(28px);
-}
-
+.atmosphere-panel::before,
+.atmosphere-panel__wash,
 .atmosphere-panel__grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.08;
-  mix-blend-mode: soft-light;
-  background-image: repeating-radial-gradient(circle at 0 0, rgb(255 255 255 / 0.45) 0, transparent 1px, transparent 3px);
-  background-size: 5px 5px;
+  display: none;
 }
 
 @keyframes db-rise { from { opacity: 0; transform: translate3d(0, 110%, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }

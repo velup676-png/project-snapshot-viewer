@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/SiteNav";
 import { Hero } from "@/components/site/Hero";
+import { AtmospherePanel } from "@/components/site/AtmospherePanel";
 import { StudioStatement } from "@/components/site/StudioStatement";
 import { ServiceList } from "@/components/site/ServiceList";
 import { AboutSection } from "@/components/site/AboutSection";
@@ -34,12 +35,11 @@ function Index() {
       <SiteNav />
       <main>
         <Hero />
+        <AtmospherePanel />
         <StudioStatement />
         <ServiceList />
         <SelectedWork />
         <AboutSection />
-        {/* Phase 3+ sections mount here: SelectedWork, Portfolio, Elsewhere,
-            ContactCTA, Footer. */}
       </main>
     </>
   );

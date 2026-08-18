@@ -70,13 +70,12 @@ export function AtmospherePanel() {
       context.fillStyle = "#0b0b0c";
       context.fillRect(0, 0, w, h);
 
-      // ash keeps flying only while the pointer moves; it dissipates fast at rest
+      // full brightness while moving; the trail dissolves quickly once you stop
       const activity = Math.min(velocity * 30, 1);
-      const zoom = 1.014 + activity * 0.006;
-      const driftX = Math.cos(t * 1.7) * w * 0.002 - dirX * w * 0.3;
-      // negative Y = smoke rising
-      const driftY = -h * 0.0022 - dirY * h * 0.3;
-      context.globalAlpha = 0.8 + activity * 0.16;
+      const zoom = 1.012;
+      const driftX = Math.cos(t * 1.7) * w * 0.0016 - dirX * w * 0.22;
+      const driftY = Math.sin(t * 1.3) * h * 0.0016 - dirY * h * 0.22;
+      context.globalAlpha = 0.72 + activity * 0.25;
       context.drawImage(
         buffer,
         (w - w * zoom) / 2 + driftX,
@@ -86,18 +85,18 @@ export function AtmospherePanel() {
       );
       context.globalAlpha = 1;
 
-      // 2. inject fresh ash only where the pointer is actually moving
+      // 2. inject fresh ink at the cursor
       const cx = x * w;
       const cy = y * h;
-      const radius = Math.max(w, h) * (0.05 + activity * 0.07);
-      const strength = activity * 0.16;
+      const radius = Math.max(w, h) * (0.1 + Math.min(velocity * 8, 0.07));
+      const strength = (0.1 + Math.min(velocity * 6, 0.22)) * activity;
 
-      if (strength > 0.004) {
+      if (strength > 0.002) {
         context.globalCompositeOperation = "lighter";
         const paint = (px: number, py: number, r: number, a: number) => {
           const g = context.createRadialGradient(px, py, 0, px, py, r);
-          g.addColorStop(0, `rgba(196,196,200,${a})`);
-          g.addColorStop(0.4, `rgba(118,118,124,${a * 0.45})`);
+          g.addColorStop(0, `rgba(236,236,238,${a})`);
+          g.addColorStop(0.4, `rgba(150,150,155,${a * 0.5})`);
           g.addColorStop(1, "rgba(11,11,12,0)");
           context.fillStyle = g;
           context.beginPath();
@@ -107,19 +106,20 @@ export function AtmospherePanel() {
 
         paint(cx, cy, radius, strength);
         paint(
-          cx + Math.cos(t * 2.1) * radius * 0.6 - dirX * w * 1.1,
-          cy + Math.sin(t * 1.6) * radius * 0.6 - dirY * h * 1.1,
-          radius * 0.62,
-          strength * 0.45,
+          cx + Math.cos(t * 2.1) * radius * 0.5 - dirX * w * 0.9,
+          cy + Math.sin(t * 1.6) * radius * 0.5 - dirY * h * 0.9,
+          radius * 0.66,
+          strength * 0.5,
         );
         paint(
-          cx - Math.sin(t * 1.9) * radius * 0.8 - dirX * w * 2.1,
-          cy - Math.cos(t * 2.3) * radius * 0.8 - dirY * h * 2.1,
-          radius * 0.4,
-          strength * 0.28,
+          cx - Math.sin(t * 1.9) * radius * 0.7 - dirX * w * 1.8,
+          cy - Math.cos(t * 2.3) * radius * 0.7 - dirY * h * 1.8,
+          radius * 0.44,
+          strength * 0.32,
         );
         context.globalCompositeOperation = "source-over";
       }
+
 
       context.globalCompositeOperation = "source-over";
 
